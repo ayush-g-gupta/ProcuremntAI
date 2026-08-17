@@ -1,0 +1,128 @@
+import { products } from "./store.js";
+
+// Inventory-specific data is kept separately from the product catalog for now.
+// The SKU is the shared key, so the agent and /api/products always refer to the
+// same product records.
+const inventoryMetrics = {
+  "BTMC-450": {
+    currentInventory: 3200,
+    safetyStock: 1000,
+    forecastDemand14d: 2500,
+    forecastDemand30d: 5200,
+    dailyDemand: 178,
+    leadTimeDays: 8,
+    openOrders: 0,
+    lastUpdated: "2026-08-17T09:30:00.000Z",
+  },
+  "BTMC-520": {
+    currentInventory: 1100,
+    safetyStock: 900,
+    forecastDemand14d: 1800,
+    forecastDemand30d: 3900,
+    dailyDemand: 129,
+    leadTimeDays: 14,
+    openOrders: 0,
+    lastUpdated: "2026-08-17T09:30:00.000Z",
+  },
+  "BTMC-410": {
+    currentInventory: 700,
+    safetyStock: 450,
+    forecastDemand14d: 400,
+    forecastDemand30d: 700,
+    dailyDemand: 30,
+    leadTimeDays: 7,
+    openOrders: 0,
+    lastUpdated: "2026-08-17T09:30:00.000Z",
+  },
+  "BATT-CTL-220": {
+    currentInventory: 860,
+    safetyStock: 400,
+    forecastDemand14d: 450,
+    forecastDemand30d: 720,
+    dailyDemand: 32,
+    leadTimeDays: 11,
+    openOrders: 80,
+    lastUpdated: "2026-08-17T09:30:00.000Z",
+  },
+  "HV-CONN-48": {
+    currentInventory: 4500,
+    safetyStock: 1000,
+    forecastDemand14d: 2600,
+    forecastDemand30d: 4500,
+    dailyDemand: 110,
+    leadTimeDays: 5,
+    openOrders: 500,
+    lastUpdated: "2026-08-17T09:30:00.000Z",
+  },
+  "BMS-CORE-12": {
+    currentInventory: 320,
+    safetyStock: 250,
+    forecastDemand14d: 600,
+    forecastDemand30d: 1250,
+    dailyDemand: 43,
+    leadTimeDays: 18,
+    openOrders: 120,
+    lastUpdated: "2026-08-17T09:30:00.000Z",
+  },
+  "BTMC-600": {
+    currentInventory: 1450,
+    safetyStock: 800,
+    forecastDemand14d: 620,
+    forecastDemand30d: 1500,
+    dailyDemand: 48,
+    leadTimeDays: 9,
+    openOrders: 300,
+    lastUpdated: "2026-08-17T09:30:00.000Z",
+  },
+  "BMS-CORE-24": {
+    currentInventory: 1850,
+    safetyStock: 700,
+    forecastDemand14d: 800,
+    forecastDemand30d: 1700,
+    dailyDemand: 57,
+    leadTimeDays: 10,
+    openOrders: 400,
+    lastUpdated: "2026-08-17T09:30:00.000Z",
+  },
+  "HV-CONN-72": {
+    currentInventory: 980,
+    safetyStock: 700,
+    forecastDemand14d: 650,
+    forecastDemand30d: 1200,
+    dailyDemand: 50,
+    leadTimeDays: 12,
+    openOrders: 0,
+    lastUpdated: "2026-08-17T09:30:00.000Z",
+  },
+  "PWR-INV-300": {
+    currentInventory: 420,
+    safetyStock: 500,
+    forecastDemand14d: 750,
+    forecastDemand30d: 1500,
+    dailyDemand: 54,
+    leadTimeDays: 16,
+    openOrders: 0,
+    lastUpdated: "2026-08-17T09:30:00.000Z",
+  },
+};
+
+export const inventorySnapshots = products.map((product) => ({
+  sku: product.sku,
+  name: product.name,
+  category: product.category,
+  currentInventory: inventoryMetrics[product.sku]?.currentInventory ?? product.availability,
+  safetyStock: inventoryMetrics[product.sku]?.safetyStock ?? Math.ceil(product.availability * 0.25),
+  forecastDemand14d: inventoryMetrics[product.sku]?.forecastDemand14d ?? 0,
+  forecastDemand30d: inventoryMetrics[product.sku]?.forecastDemand30d ?? 0,
+  dailyDemand: inventoryMetrics[product.sku]?.dailyDemand ?? 1,
+  leadTimeDays: inventoryMetrics[product.sku]?.leadTimeDays ?? product.leadTimeDays,
+  supplier: product.supplier,
+  supplierRating: product.supplierRating,
+  openOrders: inventoryMetrics[product.sku]?.openOrders ?? 0,
+  unitPrice: product.price,
+  lastUpdated: inventoryMetrics[product.sku]?.lastUpdated ?? new Date().toISOString(),
+}));
+
+export function getInventorySnapshot(sku) {
+  return inventorySnapshots.find((item) => item.sku === sku?.toUpperCase()) ?? inventorySnapshots[0];
+}

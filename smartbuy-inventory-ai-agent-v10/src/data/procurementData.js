@@ -1,0 +1,3 @@
+export const recommendation = { product: "BTMC-450", quantity: 2500, price: 18.4, total: 46000 };
+export const dashboardMetrics = [{ icon: "cube", label: "Open orders", value: "12", note: "+2 this week", tone: "gold" }, { icon: "check", label: "Pending approvals", value: "3", note: "Action needed", tone: "green" }, { icon: "cube", label: "Active quotes", value: "5", note: "2 expiring soon", tone: "blue" }, { icon: "alert", label: "Potential savings", value: "$48,600", note: "AI identified", tone: "gold" }];
+export const workflow = [{ title: "Procurement review", status: "Approved" }, { title: "Finance approval", status: "Awaiting approval" }, { title: "Final approval", status: "Not started" }];
