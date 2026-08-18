@@ -5,6 +5,7 @@ import { errorHandler, notFound } from "./middleware/errors.js";
 import { productRouter } from "./routes/products.js";
 import { procurementRouter } from "./routes/procurement.js";
 import { inventoryRouter } from "./routes/inventory.js";
+import { chatbotRouter } from "./routes/chatbot.js";
 
 export const app = express();
 
@@ -19,6 +20,7 @@ app.get("/api/health", (req, res) => res.json({ status: "ok", service: "smartbuy
 app.use("/api/products", productRouter);
 app.use("/api", procurementRouter);
 app.use("/api", inventoryRouter);
+app.use("/api", chatbotRouter);
 
 // 2. Serve Frontend Production Assets
 app.use(express.static(distPath));

@@ -91,7 +91,7 @@ async function askCapgemini(snapshot, assessment) {
   const model = process.env.GENERATIVE_ENGINE_MODEL;
   const provider = process.env.GENERATIVE_ENGINE_PROVIDER || "bedrock";
   const modelInterface = process.env.GENERATIVE_ENGINE_INTERFACE || "multimodal";
-  const timeoutMs = Number(process.env.GENERATIVE_ENGINE_TIMEOUT_MS || 15000);
+  const timeoutMs = Number(process.env.GENERATIVE_ENGINE_TIMEOUT_MS || 30000);
 
   if (!apiKey || !baseUrl || !model) {
     return {
