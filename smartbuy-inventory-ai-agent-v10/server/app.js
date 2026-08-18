@@ -8,7 +8,6 @@ import { inventoryRouter } from "./routes/inventory.js";
 
 export const app = express();
 
-// Set up paths for ES Modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const distPath = path.resolve(__dirname, "..", "dist");
@@ -21,14 +20,14 @@ app.use("/api/products", productRouter);
 app.use("/api", procurementRouter);
 app.use("/api", inventoryRouter);
 
-// 2. Serve Frontend Production Assets (Must be BEFORE error handlers)
+// 2. Serve Frontend Production Assets
 app.use(express.static(distPath));
 
-// 3. Fallback client route for frontend React deep-links
-app.get("/(.*)", (req, res) => {
+// 3. FIX: Naye path-to-regexp ke liye sahi wildcard syntax
+app.get("/:path*", (req, res) => {
   res.sendFile(path.join(distPath, "index.html"));
 });
 
-// 4. Global Error Catchers (Only reached if an /api route fails or doesn't exist)
+// 4. Global Error Catchers
 app.use(notFound);
 app.use(errorHandler);
