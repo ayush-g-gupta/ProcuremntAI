@@ -14,7 +14,7 @@ const distPath = path.resolve(__dirname, "..", "dist");
 
 app.use(express.json({ limit: "100kb" }));
 
-// 1. API Routes
+// 1. All API Routes
 app.get("/api/health", (req, res) => res.json({ status: "ok", service: "smartbuy-api" }));
 app.use("/api/products", productRouter);
 app.use("/api", procurementRouter);
@@ -23,11 +23,16 @@ app.use("/api", inventoryRouter);
 // 2. Serve Frontend Production Assets
 app.use(express.static(distPath));
 
-// 3. FIX: Naye path-to-regexp ke liye sahi wildcard syntax
-app.get("/:path*", (req, res) => {
-  res.sendFile(path.join(distPath, "index.html"));
+// 3. FIX: Standard structural middleware configuration for React Router deep links
+// Bina kisi regex pattern parameters ke, ye Express v5 mein crash ho hi nahi sakta
+app.use((req, res, next) => {
+  // Agar request API route nahi hai, to direct index.html return karo
+  if (!req.url.startsWith('/api')) {
+    return res.sendFile(path.join(distPath, "index.html"));
+  }
+  next();
 });
 
-// 4. Global Error Catchers
+// 4. Global Error Catchers (Only for API Route mismatches or actual errors)
 app.use(notFound);
 app.use(errorHandler);
