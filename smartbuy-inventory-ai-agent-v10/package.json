@@ -3,11 +3,12 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "server": "node --env-file=server/.env server/index.js"
-  },
+"scripts": {
+  "dev": "vite",
+  "build": "vite build",
+  "server": "node --env-file=server/.env server/index.js",
+  "start": "node server/index.js"
+}
   "dependencies": {
     "@vitejs/plugin-react": "latest",
     "vite": "latest",
