@@ -1,0 +1,8 @@
+"Which product has the highest inventory risk?"
+"Why is BTMC-450 high risk?"
+"What products need replenishment?"
+"How much inventory does BTMC-520 have?"
+"Compare BTMC-450 and BTMC-520."
+"What should I do about PWR-INV-300?"
+"Which products are low risk?"
+"Summarize the current inventory situation."

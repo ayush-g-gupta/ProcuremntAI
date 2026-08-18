@@ -1,5 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { Icon } from "./Icon";
+import { SmartBuyChatbot } from "./SmartBuyChatbot";
+import { useState } from "react";
 const navItems = [
   ["/", "Dashboard", "chevron"],
   ["/products", "Products", "cube"],
@@ -10,6 +12,7 @@ const navItems = [
   ["/approvals", "Approvals", "check"],
 ];
 export function AppLayout() {
+  const [chatOpen, setChatOpen] = useState(false);
   return (
     <div className="app-shell">
       <header className="topbar">
@@ -67,10 +70,17 @@ export function AppLayout() {
       <main className="content">
         <Outlet />
       </main>
-      <div className="ai-bubble">
+      {chatOpen && <SmartBuyChatbot onClose={() => setChatOpen(false)} />}
+
+      <button
+        type="button"
+        className="ai-bubble"
+        onClick={() => setChatOpen(true)}
+        aria-label="Open SmartBuy AI"
+      >
         ✦ <span>SmartBuy AI</span>
         <i>1</i>
-      </div>
+      </button>
     </div>
   );
 }
