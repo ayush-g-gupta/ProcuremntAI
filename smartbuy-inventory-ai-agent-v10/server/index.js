@@ -1,4 +1,6 @@
 import { app } from "./app.js";
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
@@ -8,18 +10,31 @@ app.listen(port, () => {
       process.env.GENERATIVE_ENGINE_MODEL,
   );
 
-const path = require('path');
 
-// Resolve the absolute path to the 'dist' folder located at the root
+
+// Recreate __dirname for ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// ----------------------------------------------------
+// 1. YOUR API ENDPOINTS (Keep them at the top)
+// ----------------------------------------------------
+
+
+// ----------------------------------------------------
+// 2. PRODUCTION FRONTEND SERVING
+// ----------------------------------------------------
+// Resolve the path to the 'dist' folder at the root level
 const distPath = path.resolve(__dirname, '..', 'dist');
 
-// Serve the compiled HTML, CSS, and JS assets
+// Serve the static Vite build assets
 app.use(express.static(distPath));
 
-// Fallback wildcard handler for React Router client-side routing
+// Fallback catch-all handler for React Router links
 app.get('*', (req, res) => {
     res.sendFile(path.join(distPath, 'index.html'));
 });
+
 
 
   console.log(`SmartBuy API listening on http://localhost:${port}`);
