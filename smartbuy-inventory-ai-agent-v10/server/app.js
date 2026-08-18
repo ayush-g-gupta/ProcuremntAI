@@ -6,11 +6,6 @@ import { inventoryRouter } from "./routes/inventory.js";
 
 export const app = express();
 
-app.use(express.static(path.join(__dirname, '../dist')));
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../dist', 'index.html'));
-});
 app.use(express.json({ limit: "100kb" }));
 app.get("/api/health", (req, res) => res.json({ status: "ok", service: "smartbuy-api" }));
 app.use("/api/products", productRouter);
