@@ -8,6 +8,13 @@ app.listen(port, () => {
       process.env.GENERATIVE_ENGINE_MODEL,
   );
 
+  
+  app.use(express.static(path.join(__dirname, '../dist')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../dist', 'index.html'));
+});
+
   console.log(`SmartBuy API listening on http://localhost:${port}`);
   console.log(`Capgemini AI configuration: ${aiConfigured ? "loaded" : "missing"}`);
 });
