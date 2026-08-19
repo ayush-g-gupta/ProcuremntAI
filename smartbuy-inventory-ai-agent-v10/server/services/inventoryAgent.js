@@ -163,7 +163,7 @@ ${JSON.stringify(assessment)}`.trim();
             "You are a precise enterprise inventory analyst. Return valid JSON only and follow the requested schema exactly.",
           sessionId: `inventory-${snapshot.sku}-${Date.now()}`,
           modelKwargs: {
-            maxTokens: 400,
+            maxTokens: 800,
             temperature: 0.2,
             streaming: false,
             topP: 0.9,
