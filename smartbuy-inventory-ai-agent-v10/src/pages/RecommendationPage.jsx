@@ -54,6 +54,7 @@ export function RecommendationPage() {
         Dashboard <Icon name="chevron" size={12} /> AI recommendation
       </div>
 
+      <div className="page-inner">
       <section className="recommendation-hero">
         <div>
           <p className="eyebrow light">✦ AI-POWERED INVENTORY RECOMMENDATION</p>
@@ -86,7 +87,7 @@ export function RecommendationPage() {
           </strong>
         </div>
 
-        <h3>Why this recommendation?</h3>
+        <h3>Why this product?</h3>
         <div className="reason-grid">
           {reasons.map((x) => (
             <span key={x}>
@@ -139,10 +140,11 @@ export function RecommendationPage() {
       </Card>
 
       <div className="sticky-action">
+        <Link className="button outline" to="/">Back to dashboard</Link>
         <Button onClick={proceedToQuote} disabled={!inventoryResult}>
           Proceed to quote <Icon name="arrow" size={16} />
         </Button>
-        <Link className="button" to="/">Back to dashboard</Link>
+      </div>
       </div>
     </div>
   );

@@ -96,13 +96,18 @@ p {
 .avatar {
   display: grid;
   place-items: center;
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: #2365de;
+  /* background: #2365de; */
   color: white;
   font-size: 10px;
   font-weight: 800;
+}
+.avatar-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 .user {
   font-size: 11px;
@@ -249,8 +254,7 @@ p {
   overflow: hidden;
   padding: 19px;
 }
-.risk-hero:after,
-.recommendation-hero:after {
+.risk-hero:after {
   content: "";
   position: absolute;
   width: 150px;
@@ -293,12 +297,20 @@ p {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
+  align-items: stretch;
+  max-width: 910px;
+  margin: 18px auto;
+  grid-auto-rows: 1fr;
 }
 .metric {
   background: #f7f9fc;
   border-radius: 7px;
   padding: 11px;
   min-height: 54px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 .metric small {
   display: block;
@@ -351,9 +363,41 @@ p {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px #164a9b50;
 }
+
+/* Keep primary action button width stable and show loading spinner */
+.button.primary,
+.button {
+  white-space: nowrap;
+  min-width: 220px;
+}
+
+.button.loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.95;
+}
+
+.button.loading::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 8px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-top-color: #fff;
+  animation: spin 0.8s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 .button.outline {
   background: transparent;
-  border-color: #6682aa;
+  border-color: transparent;
+  color: #356ce0;
+  box-shadow: none;
 }
 .button.success {
   background: #13b97e;
@@ -396,6 +440,40 @@ p {
   gap: 12px;
   max-width: 910px;
   margin: 24px auto;
+}
+/* Ensure common grid containers stretch children to equal height */
+.stat-row,
+.metric-grid,
+.reason-grid,
+.key-grid,
+.split-cards,
+.dashboard-bottom,
+.quote-layout {
+  align-items: stretch;
+  grid-auto-rows: 1fr;
+}
+
+/* Ensure direct children of these grids take full height so cards align */
+.stat-row > *,
+.metric-grid > *,
+.reason-grid > *,
+.key-grid > *,
+.split-cards > *,
+.dashboard-bottom > * {
+  height: 100%;
+}
+
+/* Make cards and metric items use full height and a column flex layout
+   so inner content doesn't change overall block height when zooming */
+.card,
+.dashboard-metric,
+.quote-paper,
+.quote-side .card,
+.metric-dark {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .card {
   border: 1px solid #d6e0ec;
@@ -521,6 +599,11 @@ p {
   max-width: 720px;
   margin: auto;
 }
+
+.page-inner {
+  max-width: 910px;
+  margin: 0 auto;
+}
 .breadcrumb {
   font-size: 10px;
   color: #607eaa;
@@ -533,9 +616,10 @@ p {
   position: relative;
   overflow: hidden;
   border-radius: 12px;
-  padding: 25px;
-  background: linear-gradient(115deg, #102b51, #173860);
+  padding: 40px 36px;
+  background: linear-gradient(118deg, #092446, #1d416d);
   color: white;
+  min-height: 360px;
 }
 .recommendation-hero h1 {
   font-size: 27px;
@@ -549,20 +633,37 @@ p {
 .light {
   color: #c4d2e4;
 }
-.score {
+.recommendation-hero:after {
+  content: "";
   position: absolute;
-  top: 24px;
-  right: 25px;
-  width: 114px;
-  height: 128px;
-  border: 1px solid #6681a5;
-  background: #ffffff18;
-  border-radius: 11px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle at 20% 20%, rgba(159,110,255,0.35), rgba(57,36,102,0.45));
+  border-radius: 50%;
+  right: -80px;
+  top: -80px;
+  pointer-events: none;
+}
+
+.score {
+  width: 124px;
+  height: 132px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
   display: grid;
   place-items: center;
-  align-content: center;
-  z-index: 1;
+  padding: 12px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(6,18,38,0.18);
+  position: absolute;
+  right: 36px;
+  top: 36px;
+  z-index: 2;
 }
+.score b { font-size: 22px; }
+.score small { display:block; color: rgba(255,255,255,0.7); font-size:12px; }
+.score span { font-size:11px; color: rgba(255,255,255,0.6); margin-top:6px; }
 .score b {
   border: 6px solid #8138e7;
   border-left-color: #9f6eff;
@@ -583,16 +684,24 @@ p {
   color: #b5c8e1;
 }
 .product-feature {
-  margin-top: 35px;
-  border: 1px solid #6b809c;
-  background: #fff2;
-  border-radius: 8px;
-  padding: 13px 15px;
+  margin-top: 28px;
+  border-radius: 10px;
+  padding: 18px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   position: relative;
-  z-index: 1;
+  z-index: 3;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.06);
+}
+/* Reserve space on the right of the hero so the score box doesn't overlap the product card */
+.recommendation-hero .product-feature {
+  width: calc(100% - 180px);
+  margin-right: 0;
+}
+.recommendation-hero .reason-grid {
+  width: calc(100% - 180px);
 }
 .product-mark {
   display: grid;
@@ -632,10 +741,39 @@ p {
 }
 .reason-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 7px;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 12px;
+  margin-top: 18px;
   position: relative;
   z-index: 1;
+}
+
+.reason-grid span {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 8px;
+  color: rgba(255,255,255,0.9);
+  min-height: 44px;
+}
+
+/* On narrower screens stack product card and reason tiles and let score box flow naturally */
+@media (max-width: 920px) {
+  .recommendation-hero .product-feature {
+    width: 100%;
+    margin-right: 0;
+  }
+  .score {
+    position: static;
+    right: auto;
+    top: auto;
+    margin: 12px 0 0 0;
+  }
+  .reason-grid {
+    grid-template-columns: 1fr;
+  }
 }
 .reason-grid span {
   background: #ffffff16;
@@ -723,10 +861,11 @@ p {
 .sticky-action {
   display: flex;
   gap: 16px;
-  justify-content: center;
+  justify-content : space-between;
   padding: 20px;
   align-items: center;
-
+  max-width: 720px;
+  margin: 18px auto;
 }
 .sticky-action .button {
   min-width: 205px;
@@ -803,14 +942,14 @@ p {
 }
 .quote-paper th:not(:first-child),
 .quote-paper td:not(:first-child) {
-  text-align: right;
+.reason-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 12px;
+  margin-top: 18px;
+  position: relative;
+  z-index: 1;
 }
-.quote-paper td {
-  padding: 9px 0;
-  border-bottom: 1px solid #e9eef4;
-}
-.quote-paper td small {
-  display: block;
   color: #6d83a6;
   font-size: 8px;
 }
@@ -999,7 +1138,7 @@ p {
   font-size: 10px;
 }
 .approver > div:first-child > span {
-  width: 22px;
+  max-width: 910px;
   height: 22px;
   border-radius: 50%;
   background: #fff0dc;
@@ -1223,21 +1362,17 @@ p {
     grid-template-columns: 1fr;
   }
   .recommendation-hero {
-    padding: 20px 15px;
+    padding: 18px 14px;
+    min-height: auto;
   }
-  .recommendation-hero h1 {
-    font-size: 22px;
-    max-width: 230px;
-  }
+
   .score {
-    transform: scale(0.75);
-    transform-origin: top right;
-    right: 6px;
-    top: 12px;
-  }
-  .product-feature {
-    margin-top: 24px;
-    padding: 10px;
+    position: static;
+    transform: none;
+    margin: 8px 0 12px 0;
+    width: 88px;
+    height: 92px;
+    justify-self: end;
   }
   .product-feature > strong {
     font-size: 15px;
@@ -1281,6 +1416,15 @@ p {
   gap: 28px;
   align-items: end;
   margin-bottom: 18px;
+}
+.agent-run-card,
+.agent-result-hero,
+.agent-metrics,
+.agent-explanation {
+  max-width: 910px;
+  margin: 0 auto 18px;
+  box-sizing: border-box;
+  width: 100%;
 }
 .agent-run-card h2 {
   font-size: 18px;
@@ -1334,6 +1478,7 @@ p {
   padding: 22px 25px;
   background: linear-gradient(115deg, #102b51, #173860);
   color: #fff;
+  width: 100%;
 }
 .agent-result-hero h2 {
   margin: 6px 0;

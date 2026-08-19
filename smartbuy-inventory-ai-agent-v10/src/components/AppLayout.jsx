@@ -28,7 +28,7 @@ export function AppLayout() {
             🔔<i>2</i>
           </span>
           <span>?</span>
-          <div className="avatar">PS</div>
+          <div className="avatar"><img className="avatar-img" src="/src/images/image (1).png" alt="Avatar" /></div>
           <div className="user">
             <b>Sophie Anderson</b>
             <small>Procurement Manager</small>
