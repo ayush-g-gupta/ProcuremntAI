@@ -1,6 +1,13 @@
-export function Button({ children, kind = "primary", ...props }) {
+export function Button({ children, kind = "primary", className = "", ...props }) {
+  const isLoading = props["data-loading"] !== undefined ? props["data-loading"] : props.disabled;
+  const loadingClass = isLoading ? "loading" : "";
+
   return (
-    <button className={`button ${kind}`} {...props}>
+    <button
+      className={`button ${kind} ${loadingClass} ${className}`.trim()}
+      data-loading={isLoading}
+      {...props}
+    >
       {children}
     </button>
   );
