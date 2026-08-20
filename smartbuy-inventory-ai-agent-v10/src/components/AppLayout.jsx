@@ -2,6 +2,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import { Icon } from "./Icon";
 import { SmartBuyChatbot } from "./SmartBuyChatbot";
 import { useState } from "react";
+import avatarImg from "../images/image (1).png";
 const navItems = [
   ["/", "Dashboard", "chevron"],
   ["/products", "Products", "cube"],
@@ -28,7 +29,7 @@ export function AppLayout() {
             🔔<i>2</i>
           </span>
           <span>?</span>
-          <div className="avatar"><img className="avatar-img" src="/src/images/image (1).png" alt="Avatar" /></div>
+          <div className="avatar"><img className="avatar-img" src={avatarImg} alt="Avatar" /></div>
           <div className="user">
             <b>Sophie Anderson</b>
             <small>Procurement Manager</small>
