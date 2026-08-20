@@ -119,15 +119,15 @@ export function DashboardPage() {
 
   const assessment = inventoryResult?.assessment;
   const displayedSnapshot =
-    inventoryResult?.snapshot || highestPriorityInventory;
+    inventoryResult?.snapshot || null;
 
   const aiRiskLevel = inventoryResult?.ai?.riskLevel;
   const displayedRiskLevel =
-    aiRiskLevel || assessment?.riskLevel || "medium";
+    aiRiskLevel || assessment?.riskLevel || null;
 
-  const displayedRiskLabel =
+  const displayedRiskLabel = displayedRiskLevel ?
     displayedRiskLevel.charAt(0).toUpperCase() +
-    displayedRiskLevel.slice(1);
+    displayedRiskLevel.slice(1) : "-";
 
   const displayedSummary =
     inventoryResult?.ai?.explanation?.summary ||
@@ -147,17 +147,19 @@ export function DashboardPage() {
         <div className="risk-copy">
           <span className="alert-pill">
             <Icon name="alert" size={13} />
-            {inventoryResult?.ai?.used
+            {inventoryResult 
+            ? inventoryResult?.ai?.used
               ? `AI inventory risk: ${displayedRiskLabel}`
-              : "Inventory risk detected"}
+              :"AI Risk Completed"
+              : "AI Check Required"}
           </span>
 
           <span className="muted-on-dark">
-            {inventoryResult ? "AI Alert · Just now" : "Inventory priority · Current"}
+            {inventoryResult ? "AI Alert · Just now" : "No AI Analysis Run Yet"}
           </span>
 
           <h2>
-            {displayedSnapshot?.name || "Inventory risk"}
+            {displayedSnapshot?.name || "Run an AI Inventory check"}
           </h2>
 
           <p>{displayedSummary}</p>
@@ -218,8 +220,8 @@ export function DashboardPage() {
         </div>
 
         <div className="risk-orb">
-          <span>{displayedRiskLevel.slice(0, 3).toUpperCase()}</span>
-          <small>{inventoryResult?.ai?.used ? "AI Risk" : "Priority"}</small>
+          <span>{displayedRiskLevel ? displayedRiskLevel.slice(0, 3).toUpperCase() : "-"}</span>
+          <small>{inventoryResult?.ai?.used ? "AI Inventory Risk" : "Priority"}</small>
         </div>
       </section>
 

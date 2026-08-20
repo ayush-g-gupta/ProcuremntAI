@@ -804,8 +804,26 @@ p {
   justify-content: space-between;
 }
 .risk-line b {
-  color: #11b980;
+  font-weight:700;
 }
+
+.risk-line b.risk-high{
+  color: #dc2626;
+}
+
+.risk-line b.risk-medium, .risk-indicator.risk-medium {
+  color: #f59e0b;
+}
+
+.risk-line b.risk-low, .risk-indicator.risk-low{
+  color: #16a34a;
+}
+
+.risk-indicator.risk-high{
+  color: #dc2626;
+}
+
+
 .risk-line i,
 .amount i {
   display: block;

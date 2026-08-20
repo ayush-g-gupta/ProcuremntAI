@@ -110,9 +110,9 @@ export function RecommendationPage() {
             <div className="risk-line" key={label}>
               <span>
                 {label}
-                <b>{String(value).toUpperCase()}</b>
+                <b className={`risk-${risk?.toLowerCase()}`}>{String(value).toUpperCase()}</b>
               </span>
-              <i />
+              {/* <i className={`risk-indicator risk-${risk?.toLowerCase()}`}/> */}
             </div>
           ))}
         </Card>
