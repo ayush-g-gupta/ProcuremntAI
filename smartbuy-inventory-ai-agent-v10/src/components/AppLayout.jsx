@@ -60,7 +60,7 @@ export function AppLayout() {
           </button>
           <button>⚙ Settings</button>
           <div className="user-side">
-            <span className="avatar">PS</span>
+            <span className="avatar">SA</span>
             <div>
               <b>Sophie Anderson</b>
               <small>Procurement Manager</small>
