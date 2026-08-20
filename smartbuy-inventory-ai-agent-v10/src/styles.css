@@ -358,6 +358,7 @@ p {
   transition:
     0.18s transform,
     0.18s box-shadow;
+  text-decoration: none;
 }
 .button:hover {
   transform: translateY(-1px);
@@ -394,10 +395,11 @@ p {
   to { transform: rotate(360deg); }
 }
 .button.outline {
-  background: transparent;
-  border-color: transparent;
+  background: #ffffff;
+  border-color: #d6e0ec;
   color: #356ce0;
   box-shadow: none;
+  text-decoration: none;
 }
 .button.success {
   background: #13b97e;
@@ -860,22 +862,22 @@ p {
 
 .sticky-action {
   display: flex;
-  gap: 16px;
-  justify-content : space-between;
-  padding: 20px;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 12px;
   align-items: center;
   max-width: 720px;
-  margin: 18px auto;
+  margin: 12px auto;
 }
 .sticky-action .button {
-  min-width: 205px;
+  min-width: 160px;
 }
 .quote-layout {
   max-width: 625px;
   margin: auto;
   display: grid;
-  grid-template-columns: 410px 195px;
-  gap: 18px;
+  grid-template-columns: 1fr 195px;
+  gap: 12px;
 }
 .quote-paper {
   padding: 0;
@@ -884,7 +886,7 @@ p {
 .quote-paper header {
   background: #091f3e;
   color: #fff;
-  padding: 18px;
+  padding: 12px;
   display: flex;
   justify-content: space-between;
   font-size: 9px;
@@ -915,7 +917,7 @@ p {
 .parties {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 25px 18px 18px;
+  padding: 16px 14px 14px;
   border-bottom: 1px solid #e9eef4;
 }
 .parties small,
@@ -930,8 +932,8 @@ p {
   margin: 5px 0;
 }
 .quote-paper table {
-  width: calc(100% - 36px);
-  margin: 11px 18px;
+  width: calc(100% - 28px);
+  margin: 8px 14px;
   border-collapse: collapse;
   font-size: 10px;
 }
@@ -942,25 +944,30 @@ p {
 }
 .quote-paper th:not(:first-child),
 .quote-paper td:not(:first-child) {
-.reason-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 12px;
-  margin-top: 18px;
-  position: relative;
-  z-index: 1;
-}
   color: #6d83a6;
-  font-size: 8px;
+  font-size: 12px;
+}
+.quote-paper th,
+.quote-paper td {
+  padding: 10px 8px;
+  vertical-align: middle;
+}
+.quote-paper tr {
+  border-bottom: 1px solid #eef3f7;
 }
 .quote-paper tfoot {
   font-size: 14px;
 }
+
+/* Slightly tighter cards for approval/list views */
+.approval-main .card {
+  padding: 14px;
+}
 .delivery,
 .saving {
-  margin: 18px;
+  margin: 12px;
   border-radius: 7px;
-  padding: 11px;
+  padding: 10px;
   display: flex;
   gap: 10px;
   font-size: 10px;
@@ -1000,8 +1007,8 @@ p {
   width: 100%;
 }
 .quote-side .card {
-  padding: 15px;
-  margin-bottom: 13px;
+  padding: 12px;
+  margin-bottom: 10px;
   font-size: 10px;
 }
 .quote-side h3 {
@@ -1039,23 +1046,43 @@ p {
   max-width: 625px;
   margin: auto;
   display: grid;
-  grid-template-columns: 410px 195px;
-  gap: 18px;
+  grid-template-columns: 1fr 195px;
+  gap: 12px;
 }
 .approval-main > .subhead {
   margin-bottom: 20px;
 }
 .approval-main .card {
-  margin-top: 16px;
+  margin-top: 10px;
+}
+
+/* Prevent cards in these two layouts from stretching to full column height */
+.quote-layout,
+.approval-layout {
+  align-items: start;
+}
+.quote-layout .card,
+.approval-layout .card {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Make the right-side amount card compact and aligned to top */
+.approval-layout > aside .card,
+.quote-layout > aside .card {
+  align-self: start;
+  padding: 16px;
 }
 .request-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 8px;
 }
 .request-grid > div {
   background: #f6f8fc;
-  padding: 10px;
+  padding: 8px;
   border-radius: 6px;
 }
 .request-grid small,

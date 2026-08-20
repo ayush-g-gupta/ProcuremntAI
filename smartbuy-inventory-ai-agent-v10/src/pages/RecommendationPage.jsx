@@ -141,7 +141,7 @@ export function RecommendationPage() {
 
       <div className="sticky-action">
         <Link className="button outline" to="/">Back to dashboard</Link>
-        <Button onClick={proceedToQuote} disabled={!inventoryResult}>
+        <Button onClick={proceedToQuote}>
           Proceed to quote <Icon name="arrow" size={16} />
         </Button>
       </div>
